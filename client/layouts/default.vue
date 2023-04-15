@@ -38,7 +38,7 @@
     <v-footer
       app
     >
-      <span>&copy; {{ new Date().getFullYear() }}</span>
+      <span>Alexander Kotov&copy;{{ new Date().getFullYear() }}</span>
     </v-footer>
   </v-app>
 </template>
@@ -52,16 +52,16 @@ export default {
       items: [
         {
           icon: 'mdi-calendar-range',
-          title: 'Orders',
-          to: '/orders'
+          title: 'Calendar',
+          to: '/calendar'
         },
         {
-          icon: 'mdi-package-variant-closed-check',
-          title: 'Products',
-          to: '/products'
+          icon: 'mdi-account',
+          title: 'Users',
+          to: '/users'
         }
       ],
-      title: 'OTP6 Test'
+      title: 'Corp Calendar'
     }
   }
 }

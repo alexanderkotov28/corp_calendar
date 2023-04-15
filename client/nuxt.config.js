@@ -1,14 +1,14 @@
 import colors from 'vuetify/es5/util/colors'
 
 export default {
-  // env: {
-  //   apiUrl: process.env.API_URL
-  // },
+  env: {
+    appUrl: process.env.APP_URL
+  },
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - corp_calendar_client',
-    title: 'corp_calendar_client',
+    titleTemplate: '%s - Corp Calendar',
+    title: 'Corp Calendar',
     htmlAttrs: {
       lang: 'en'
     },
@@ -44,27 +44,27 @@ export default {
     '@nuxtjs/auth-next'
   ],
 
-  // axios: {
-  //   proxy: true,
-  //   credentials: true,
-  //   // baseURL: process.env.API_URL
-  // },
-  // proxy: {
-  //   '/api/': process.env.API_URL
-  // },
+  axios: {
+    credentials: true,
+    baseURL: process.env.APP_URL
+  },
 
   router: {
     middleware: ['auth']
   },
 
   auth: {
+    redirect: {
+      home: '/calendar',
+    },
     strategies: {
       laravelSanctum: {
         provider: 'laravelSanctum',
         url: '/api',
         endpoints: {
           login: {url: '/api/auth/login', method: 'post'},
-          logout: {url: '/api/auth/logout', method: 'post'}
+          logout: {url: '/api/auth/logout', method: 'post'},
+          user: {url: '/api/auth/user', method: 'get'},
         }
       }
     }

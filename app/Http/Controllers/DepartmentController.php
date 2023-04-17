@@ -7,10 +7,14 @@ use App\Http\Resources\DepartmentResource;
 use App\Models\Department;
 use App\Services\Department\DepartmentListService;
 use App\Services\Department\DepartmentStoreService;
-use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Department::class);
+    }
+
     public function index(DepartmentListService $service)
     {
         return DepartmentResource::collection($service->list());
@@ -33,6 +37,11 @@ class DepartmentController extends Controller
 
     public function destroy(Department $department, DepartmentStoreService $service)
     {
+        if ($department->users()->exists()) {
+            return response()->json([
+                'message' => 'Cannot delete department having stuff. Transfer staff first',
+            ], 422);
+        }
         return $service->destroy($department);
     }
 }

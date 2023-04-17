@@ -39,6 +39,9 @@ export const actions = {
   updateDepartment(context, data) {
     return this.$axios.put('/api/departments/' + context.state.department.id, data)
   },
+  deleteDepartment(context, id) {
+    return this.$axios.delete('/api/departments/' + id)
+  }
 }
 
 export const getters = {}

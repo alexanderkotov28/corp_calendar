@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapMutations } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 export default {
   name: "index",
@@ -66,16 +66,13 @@ export default {
     message: null
   }),
   methods: {
-    ...mapActions('departments', ['fetchDepartments']),
+    ...mapActions('departments', ['fetchDepartments', 'deleteDepartment']),
+    ...mapActions('alerts', ['info']),
     destroy(id){
-      // this.destroyProduct(id).then(() => {
-      //   this.fetchProducts().then(() => {
-      //     this.loading = false;
-      //   });
-      //
-      //   this.message = 'Product destroyed'
-      //   this.snackbar = true;
-      // })
+      this.deleteDepartment(id).then(() => {
+        this.info('Department has been deleted');
+        this.fetchDepartments();
+      });
     }
   },
   computed: {

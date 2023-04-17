@@ -43,6 +43,7 @@ export default {
   }),
   methods: {
     ...mapActions('departments', ['createDepartment', 'updateDepartment']),
+    ...mapActions('alerts', ['info']),
     submit() {
       if (this.$refs.form.validate()) {
         this.processing = true;
@@ -56,8 +57,7 @@ export default {
     },
     create() {
       return this.createDepartment(this.departmentData).then(resp => {
-        this.message = 'Department has been created';
-        this.snackbar = true;
+        this.info('Department has been created');
         setTimeout(() => {
           this.$router.push({path: '/departments'})
         }, 2000)
@@ -65,8 +65,7 @@ export default {
     },
     update() {
       return this.updateDepartment(this.departmentData).then(resp => {
-        this.message = 'Department updated';
-        this.snackbar = true;
+        this.info('Department updated');
       })
     }
   },

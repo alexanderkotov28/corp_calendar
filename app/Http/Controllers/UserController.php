@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\UserData;
+use App\Data\UserCreateData;
+use App\Data\UserUpdateData;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Services\User\UserListService;
@@ -11,12 +12,20 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function index(UserListService $service, Request $request)
+    public function __construct()
     {
-        return UserResource::collection($service->list($request->get('page', 1)));
+        $this->authorizeResource(User::class);
     }
 
-    public function store(UserData $data, UserStoreService $service): UserResource
+    public function index(UserListService $service, Request $request)
+    {
+        return UserResource::collection($service->pagination(
+            $request->get('page', 1),
+            $request->get('perPage', 10)
+        ));
+    }
+
+    public function store(UserCreateData $data, UserStoreService $service): UserResource
     {
         return new UserResource($service->store($data));
     }
@@ -26,15 +35,18 @@ class UserController extends Controller
         return new UserResource($user);
     }
 
-    public function update(User $user, UserData $data, UserStoreService $service): UserResource
+    public function update(User $user, UserUpdateData $data, UserStoreService $service): UserResource
     {
         return new UserResource($service->update($user, $data));
     }
 
     public function destroy(User $user, UserStoreService $service)
     {
-        return [
-            'deleted' => $service->destroy($user),
-        ];
+        if (auth()->user()->id === $user->id) {
+            return response()->json([
+                'message' => 'Cannot delete your own account',
+            ], 422);
+        }
+        return ['deleted' => $service->destroy($user)];
     }
 }

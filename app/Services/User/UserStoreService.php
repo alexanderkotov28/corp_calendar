@@ -2,20 +2,29 @@
 
 namespace App\Services\User;
 
-use App\Data\UserData;
+use App\Data\UserCreateData;
+use App\Data\UserUpdateData;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserStoreService
 {
 
-    public function store(UserData $data): User
+    public function store(UserCreateData $data): User
     {
+        $data->password = Hash::make($data->password);
         return User::create($data->toArray());
     }
 
-    public function update(User $user, UserData $data): User
+    public function update(User $user, UserUpdateData $data): User
     {
-        $user->update($data->toArray());
+        $data = $data->toArray();
+        if ($data['password']) {
+            $data['password'] = Hash::make($data['password']);
+        } else {
+            unset($data['password']);
+        }
+        $user->update($data);
         return $user;
     }
 

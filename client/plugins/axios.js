@@ -7,7 +7,7 @@ export default ({ $axios, redirect, app }, inject) => {
       throw error
     }
 
-    if (error.response.status === 422) {
+    if ([422, 403].includes(error.response.status)) {
       app.store.dispatch('alerts/error', error.response.data.message);
 
       throw error

@@ -6,8 +6,10 @@ use App\Models\User;
 
 class UserListService
 {
-    public function list(int $page)
+    public function pagination(int $page, int $perPage)
     {
-        return User::query()->orderBy('created_at', 'desc')->paginate(page: $page);
+        return User::with('department')
+            ->orderBy('created_at', 'desc')
+            ->paginate(page: $page, perPage: $perPage);
     }
 }

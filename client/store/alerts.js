@@ -3,7 +3,7 @@ export const state = () => ({
   message: null,
   open: false,
   color: 'info',
-  timeout: 3000
+  timeout: 4000
 })
 
 export const mutations = {

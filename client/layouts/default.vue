@@ -53,26 +53,35 @@ export default {
   data() {
     return {
       drawer: true,
-      items: [
-        {
-          icon: 'mdi-calendar-range',
-          title: 'Calendar',
-          to: '/calendar'
-        },
-        {
-          icon: 'mdi-account',
-          title: 'Users',
-          to: '/users'
-        },
-        {
-          icon: 'mdi-cards-variant',
-          title: 'Departments',
-          to: '/departments'
-        },
-      ],
       title: 'Corp Calendar'
     }
   },
-  components: {Alert}
+  components: {Alert},
+  computed: {
+    items(){
+      let items = [
+          {
+            icon: 'mdi-calendar-range',
+            title: 'Calendar',
+            to: '/calendar'
+          }
+        ];
+
+      if (this.$store.state.auth.user.is_admin) {
+        items.push({
+          icon:'mdi-account-multiple',
+          title: 'Users',
+          to: '/users'
+        });
+        items.push({
+          icon:'mdi-cards-variant',
+          title: 'Departments',
+          to: '/departments'
+        });
+      }
+
+      return items;
+    }
+  }
 }
 </script>

@@ -29,11 +29,6 @@ export default {
   },
   computed: {
     ...mapState('alerts', ['active', 'message', 'color', 'timeout'])
-  },
-  created() {
-    setTimeout(() => {
-      this.info('Bla bla bla bla bla bla bla bla bla bla bla bla')
-    }, 200)
   }
 }
 </script>

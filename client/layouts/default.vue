@@ -26,27 +26,31 @@
       fixed
       app
     >
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
       <v-toolbar-title>{{ title }}</v-toolbar-title>
-      <v-spacer />
+      <v-spacer/>
     </v-app-bar>
     <v-main>
       <v-container>
-        <Nuxt />
+        <Nuxt/>
       </v-container>
     </v-main>
     <v-footer
       app
     >
-      <span>Alexander Kotov&copy;{{ new Date().getFullYear() }}</span>
+      <span>Alexander Kotov &copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
+
+    <Alert/>
   </v-app>
 </template>
 
 <script>
+import Alert from "@/components/Alert";
+
 export default {
   name: 'DefaultLayout',
-  data () {
+  data() {
     return {
       drawer: true,
       items: [
@@ -59,10 +63,16 @@ export default {
           icon: 'mdi-account',
           title: 'Users',
           to: '/users'
-        }
+        },
+        {
+          icon: 'mdi-cards-variant',
+          title: 'Departments',
+          to: '/departments'
+        },
       ],
       title: 'Corp Calendar'
     }
-  }
+  },
+  components: {Alert}
 }
 </script>

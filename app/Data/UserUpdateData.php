@@ -15,14 +15,14 @@ class UserUpdateData extends Data
 {
     public function __construct(
         #[Required, StringType]
-        public string $name,
+        public string  $name,
         #[Required, StringType, Email, Unique('users', 'email', ignore: new RouteParameterReference('user', 'email'), ignoreColumn: 'email')]
-        public string $email,
+        public string  $email,
         public ?string $password,
         #[BooleanType]
-        public bool $is_admin,
+        public bool    $is_admin,
         #[RequiredUnless('is_admin', true)]
-        public int $department_id
+        public int     $department_id
     )
     {
     }

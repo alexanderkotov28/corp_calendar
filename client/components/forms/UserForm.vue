@@ -43,6 +43,7 @@
                     item-text="title"
                     item-value="id"
                     hide-details="auto"
+                    label="Choose departments"
     ></v-autocomplete>
 
     <v-checkbox v-model="userData.is_admin"

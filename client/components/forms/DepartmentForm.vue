@@ -18,7 +18,6 @@
     >{{ department ? 'Update' : 'Create' }}
     </v-btn>
 
-    <v-snackbar ref="snackbar" v-model="snackbar">{{ message }}</v-snackbar>
   </v-form>
 </template>
 
@@ -37,8 +36,6 @@ export default {
         v => !!v || 'Title is required'
       ]
     },
-    snackbar: false,
-    message: null,
     processing: false
   }),
   methods: {

@@ -13,4 +13,4 @@
 - Run `docker exec -i corp_calendar.fpm composer install`
 - Run `docker exec -i corp_calendar.fpm php artisan key:generate`
 - Run `docker exec -i corp_calendar.fpm php artisan migrate`
-- Run `docker exec -i corp_calendar.fpm php artisan app:init-admin`
+- Run `docker exec -i corp_calendar.fpm php artisan db:seed`

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Data\UserCreateData;
+use App\Data\UserSearchData;
 use App\Data\UserUpdateData;
 use App\Http\Resources\UserResource;
 use App\Models\User;
@@ -23,6 +24,11 @@ class UserController extends Controller
             $request->get('page', 1),
             $request->get('perPage', 10)
         ));
+    }
+
+    public function search(UserListService $service, UserSearchData $data)
+    {
+        return UserResource::collection($service->search($data->search));
     }
 
     public function store(UserCreateData $data, UserStoreService $service): UserResource

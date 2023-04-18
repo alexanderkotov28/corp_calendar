@@ -17,13 +17,11 @@ class UserResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'email' => $this->email,
-            'is_admin' => $this->is_admin,
-            'department_id' => $this->department_id,
-            'created_at' => $this->created_at->format('d-m-Y H:i:s'),
-            'department' => $this->whenLoaded('department', function () {
-                return $this->department->title;
-            }),
+            'email' => $this->whenHas('email', fn() => $this->email),
+            'is_admin' => $this->whenHas('is_admin', fn() => $this->is_admin),
+            'department_id' => $this->whenHas('department_id', fn() => $this->department_id),
+            'created_at' => $this->whenHas('created_at', fn() => $this->created_at->format('d-m-Y H:i:s')),
+            'department' => $this->whenLoaded('department', fn() => $this->department->title),
         ];
     }
 }

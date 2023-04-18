@@ -12,4 +12,9 @@ class UserListService
             ->orderBy('created_at', 'desc')
             ->paginate(page: $page, perPage: $perPage);
     }
+
+    public function search(string $search)
+    {
+        return User::where('name', 'like', "%$search%")->get(['id', 'name']);
+    }
 }

@@ -22,9 +22,9 @@ class UserCreateData extends Data
         #[Required]
         public string $password,
         #[BooleanType]
-        public bool $is_admin,
+        public bool   $is_admin,
         #[RequiredUnless('is_admin', true), IntegerType]
-        public int $department_id
+        public int    $department_id
     )
     {
     }

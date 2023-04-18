@@ -6,7 +6,8 @@ export const state = () => ({
     page: 1
   },
   fetchingPagination: false,
-  user: null
+  user: null,
+  searchAbortController: null,
 })
 
 export const mutations = {
@@ -58,6 +59,15 @@ export const actions = {
   },
   deleteUser(context, id) {
     return this.$axios.delete('/api/users/' + id)
+  },
+  searchUsers(context, search) {
+    if (this.searchAbortController && !this.searchAbortController.signal.aborted) {
+      this.searchAbortController.abort();
+    }
+    this.searchAbortController = new AbortController();
+    return this.$axios.get('/api/users/search?search=' + search, {
+      signal: this.searchAbortController.signal
+    });
   }
 }
 
